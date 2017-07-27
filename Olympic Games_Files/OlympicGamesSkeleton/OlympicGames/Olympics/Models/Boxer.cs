@@ -1,6 +1,6 @@
-﻿using System;
-using OlympicGames.Olympics.Contracts;
+﻿using OlympicGames.Olympics.Contracts;
 using OlympicGames.Olympics.Enums;
+using OlympicGames.Utils;
 
 namespace OlympicGames.Olympics.Models
 {
@@ -42,7 +42,7 @@ namespace OlympicGames.Olympics.Models
             }
             private set
             {
-                
+                this.boxingCategory = value;
             }
         }
         public int Wins
@@ -53,7 +53,9 @@ namespace OlympicGames.Olympics.Models
             }
             private set
             {
-
+                Validator.ValidateIfNull(value);
+                Validator.ValidateMinAndMaxNumber(value, 0, 100);
+                this.wins = value;
             }
         }
 
@@ -65,8 +67,15 @@ namespace OlympicGames.Olympics.Models
             }
             private set
             {
-
+                Validator.ValidateIfNull(value);
+                Validator.ValidateMinAndMaxNumber(value, 0, 100);
+                this.losses = value;
             }
+        }
+        public override string ToString()
+        {
+            return string.Format("BOXER: " + FirstName + " " + LastName + "from " + Country + "\n" + "Category: " + Category +
+            "\nWins: " + Wins + "\nLosses: " + Losses);
         }
     }
 }

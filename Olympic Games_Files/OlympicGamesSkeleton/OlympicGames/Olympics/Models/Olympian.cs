@@ -1,5 +1,6 @@
 ﻿using System;
 using OlympicGames.Olympics.Contracts;
+using OlympicGames.Utils;
 
 namespace OlympicGames.Olympics.Models
 {
@@ -24,7 +25,9 @@ namespace OlympicGames.Olympics.Models
             }
             private set
             {
-
+                Validator.ValidateIfNull(value);
+                Validator.ValidateMinAndMaxLength(value, 2, 20);
+                this.firstName = value;
             }
         }
         public string LastName
@@ -35,7 +38,9 @@ namespace OlympicGames.Olympics.Models
             }
             private set
             {
-
+                Validator.ValidateIfNull(value);
+                Validator.ValidateMinAndMaxLength(value, 2, 20);
+                this.lastName = value;
             }
         }
         public string Country
@@ -46,7 +51,9 @@ namespace OlympicGames.Olympics.Models
             }
             private set
             {
-
+                Validator.ValidateIfNull(value);
+                Validator.ValidateMinAndMaxLength(value, 3, 25);
+                this.country = value;
             }
         }
 

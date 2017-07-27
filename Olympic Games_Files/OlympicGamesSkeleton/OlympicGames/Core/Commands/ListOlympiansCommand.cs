@@ -16,7 +16,7 @@ namespace OlympicGames.Core.Commands
         public ListOlympiansCommand(IList<string> commandParameters)
             : base(commandParameters)
         {
-            // TODO: Implement here
+            
         }
 
         // Use it. It works!
