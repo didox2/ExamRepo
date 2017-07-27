@@ -16,7 +16,7 @@ namespace OlympicGames.Core.Commands
         public ListOlympiansCommand(IList<string> commandParameters)
             : base(commandParameters)
         {
-            
+            this.Committee.Olympians.GetType().ToString();
         }
 
         // Use it. It works!
@@ -24,27 +24,33 @@ namespace OlympicGames.Core.Commands
         {
             var stringBuilder = new StringBuilder();
             var sorted = this.Committee.Olympians.ToList();
-
-            stringBuilder.AppendLine(string.Format(GlobalConstants.SortingTitle, this.key, this.order));
-
-            if (this.order.ToLower().Trim() == "desc")
+            if (sorted != null)
             {
-                sorted = this.Committee.Olympians.OrderByDescending(x =>
+                stringBuilder.AppendLine(string.Format(GlobalConstants.SortingTitle, this.key, this.order));
+
+                if (this.order.ToLower().Trim() == "desc")
                 {
-                    return x.GetType().GetProperties().FirstOrDefault(y => y.Name.ToLower() == this.key.ToLower()).GetValue(x, null);
-                }).ToList();
+                    sorted = this.Committee.Olympians.OrderByDescending(x =>
+                    {
+                        return x.GetType().GetProperties().FirstOrDefault(y => y.Name.ToLower() == this.key.ToLower()).GetValue(x, null);
+                    }).ToList();
+                }
+                else
+                {
+                    sorted = this.Committee.Olympians.OrderBy(x =>
+                    {
+                        return x.GetType().GetProperties().FirstOrDefault(y => y.Name.ToLower() == this.key.ToLower()).GetValue(x, null);
+                    }).ToList();
+                }
+
+                foreach (var item in sorted)
+                {
+                    stringBuilder.AppendLine(item.ToString());
+                }
             }
             else
             {
-                sorted = this.Committee.Olympians.OrderBy(x =>
-                {
-                    return x.GetType().GetProperties().FirstOrDefault(y => y.Name.ToLower() == this.key.ToLower()).GetValue(x, null);
-                }).ToList();
-            }
-
-            foreach (var item in sorted)
-            {
-                stringBuilder.AppendLine(item.ToString());
+                stringBuilder.Append(GlobalConstants.NoOlympiansAdded);
             }
 
             return stringBuilder.ToString();

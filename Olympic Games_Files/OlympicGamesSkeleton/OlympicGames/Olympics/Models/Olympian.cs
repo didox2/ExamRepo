@@ -56,6 +56,6 @@ namespace OlympicGames.Olympics.Models
                 this.country = value;
             }
         }
-
+        
     }
 }

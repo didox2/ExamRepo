@@ -17,7 +17,18 @@ namespace OlympicGames.Core.Commands
 
         public CreateSprinterCommand(IList<string> commandLine) : base(commandLine)
         {
-            this.Committee.Olympians.Add(this.Factory.CreateSprinter(commandLine[0],commandLine[1],commandLine[2],new Dictionary<string,double>()));
+            if (commandLine.Count > 3)
+            {
+                string[] record;
+                for (int i = 3; i < commandLine.Count; i++)
+                {
+                    record = commandLine[i].Split('/');
+                    records.Add(record[0], double.Parse(record[1]));
+                }
+
+            }
+
+            this.Committee.Olympians.Add(this.Factory.CreateSprinter(commandLine[0], commandLine[1], commandLine[2], records));
         }
 
         public override string Execute()
@@ -26,11 +37,7 @@ namespace OlympicGames.Core.Commands
             stringBuilder.Append("Created Sprinter\n");
             foreach (var item in this.Committee.Olympians)
             {
-                if (this.Committee.Olympians.GetType().ToString()=="Sprinter")
-                {
-                    stringBuilder.Append(item);
-                }
-                
+                stringBuilder.Append(item);
             }
             return stringBuilder.ToString();
         }
