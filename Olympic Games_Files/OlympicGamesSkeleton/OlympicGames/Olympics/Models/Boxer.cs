@@ -1,6 +1,8 @@
 ﻿using OlympicGames.Olympics.Contracts;
 using OlympicGames.Olympics.Enums;
 using OlympicGames.Utils;
+using System.Text;
+using System;
 
 namespace OlympicGames.Olympics.Models
 {
@@ -10,26 +12,10 @@ namespace OlympicGames.Olympics.Models
         private int wins;
         private int losses;
 
-        public Boxer(string firstName, string lastName, string country, string boxingCategory, int wins, int losses) : base(firstName, lastName, country)
+        public Boxer(string firstName, string lastName, string country, string boxingCategory, int wins, int losses)
+            : base(firstName, lastName, country)
         {
-            switch (boxingCategory)
-            {
-                case "Flyweight":
-                    this.Category = BoxingCategory.Flyweight;
-                    break;
-                case "Featherweight":
-                    this.Category = BoxingCategory.Featherweight;
-                    break;
-                case "Lightweight":
-                    this.Category = BoxingCategory.Lightweight;
-                    break;
-                case "Middleweight":
-                    this.Category = BoxingCategory.Middleweight;
-                    break;
-                case "Heavyweight":
-                    this.Category = BoxingCategory.Heavyweight;
-                    break;
-            }
+            Enum.TryParse(boxingCategory, true, out this.boxingCategory);
             this.Wins = wins;
             this.Losses = losses;
         }
@@ -53,8 +39,7 @@ namespace OlympicGames.Olympics.Models
             }
             private set
             {
-                Validator.ValidateIfNull(value);
-                Validator.ValidateMinAndMaxNumber(value, 0, 100);
+                Validator.ValidateMinAndMaxNumber(value, 0, 100, "Wins must be between 0 and 100!");
                 this.wins = value;
             }
         }
@@ -67,15 +52,21 @@ namespace OlympicGames.Olympics.Models
             }
             private set
             {
-                Validator.ValidateIfNull(value);
-                Validator.ValidateMinAndMaxNumber(value, 0, 100);
+                Validator.ValidateMinAndMaxNumber(value, 0, 100, "Losses must be between 0 and 100!");
                 this.losses = value;
             }
         }
-        public override string ToString()
+
+        protected override string PrintAdditionalInfo()
         {
-            return string.Format("BOXER: " + FirstName + " " + LastName + "from " + Country + "\n" + "Category: " + Category +
-            "\nWins: " + Wins + "\nLosses: " + Losses);
+            StringBuilder sb = new StringBuilder();
+            sb.Append(string.Format("Category: " + this.Category + "\nWins: " + this.Wins + "\nLosses: " + this.Losses));
+            return sb.ToString();
+        }
+
+        protected override string GetTypeName()
+        {
+            return "Boxer";
         }
     }
 }

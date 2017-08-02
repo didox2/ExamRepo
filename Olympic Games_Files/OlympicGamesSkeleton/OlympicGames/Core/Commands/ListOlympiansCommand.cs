@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using OlympicGames.Core.Commands.Abstracts;
 using OlympicGames.Core.Contracts;
 using OlympicGames.Utils;
@@ -16,15 +15,28 @@ namespace OlympicGames.Core.Commands
         public ListOlympiansCommand(IList<string> commandParameters)
             : base(commandParameters)
         {
-            this.Committee.Olympians.GetType().ToString();
+            if (commandParameters.Count() == 0)
+            {
+                this.key = "firstname";
+                this.order = "asc";
+            }
+            else if (commandParameters.Count() == 1)
+            {
+                this.key = commandParameters[0];
+                this.order = "asc";
+            }
+            else
+            {
+                this.key = commandParameters[0];
+                this.order = commandParameters[1];
+            }
         }
-
         // Use it. It works!
         public override string Execute()
         {
             var stringBuilder = new StringBuilder();
             var sorted = this.Committee.Olympians.ToList();
-            if (sorted != null)
+            if (sorted.Count != 0)
             {
                 stringBuilder.AppendLine(string.Format(GlobalConstants.SortingTitle, this.key, this.order));
 
@@ -52,7 +64,6 @@ namespace OlympicGames.Core.Commands
             {
                 stringBuilder.Append(GlobalConstants.NoOlympiansAdded);
             }
-
             return stringBuilder.ToString();
         }
     }

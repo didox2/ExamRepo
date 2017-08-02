@@ -1,10 +1,9 @@
-﻿using System;
-using OlympicGames.Olympics.Contracts;
+﻿using OlympicGames.Olympics.Contracts;
 using OlympicGames.Utils;
 
 namespace OlympicGames.Olympics.Models
 {
-    public class Olympian : IOlympian, ICountry
+    public abstract class Olympian : IOlympian
     {
         private string firstName;
         private string lastName;
@@ -25,8 +24,7 @@ namespace OlympicGames.Olympics.Models
             }
             private set
             {
-                Validator.ValidateIfNull(value);
-                Validator.ValidateMinAndMaxLength(value, 2, 20);
+                Validator.ValidateMinAndMaxLength(value, 2, 20, "First name must be between 2 and 20 characters long!");
                 this.firstName = value;
             }
         }
@@ -38,8 +36,7 @@ namespace OlympicGames.Olympics.Models
             }
             private set
             {
-                Validator.ValidateIfNull(value);
-                Validator.ValidateMinAndMaxLength(value, 2, 20);
+                Validator.ValidateMinAndMaxLength(value, 2, 20, "Last name must be bewtween 2 and 20 characters long!");
                 this.lastName = value;
             }
         }
@@ -51,11 +48,20 @@ namespace OlympicGames.Olympics.Models
             }
             private set
             {
-                Validator.ValidateIfNull(value);
-                Validator.ValidateMinAndMaxLength(value, 3, 25);
+                Validator.ValidateMinAndMaxLength(value, 3, 25, "Country must be between 3 and 25 characters long!");
                 this.country = value;
             }
         }
-        
+        public override string ToString()
+        {
+            return string.Format(this.GetTypeName().ToUpper() + ": " + this.FirstName + " " + this.LastName + " from " +
+                this.Country + "\n" + this.PrintAdditionalInfo());
+        }
+
+        protected abstract string PrintAdditionalInfo();
+
+        protected abstract string GetTypeName();
+
+
     }
 }

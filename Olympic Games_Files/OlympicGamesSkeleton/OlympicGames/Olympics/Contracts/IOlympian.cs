@@ -1,6 +1,6 @@
 ﻿namespace OlympicGames.Olympics.Contracts
 {
-    public interface IOlympian
+    public interface IOlympian : ICountry
     {
         string FirstName { get; }
 

@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Commands\Abstracts\Command.cs" />
+    <Compile Include="Core\Commands\CreateOlympianCommand.cs" />
     <Compile Include="Core\Providers\CommandParser.cs" />
     <Compile Include="Core\Commands\CreateBoxerCommand.cs" />
     <Compile Include="Core\Commands\CreateSprinterCommand.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Olympics\Enums\BoxingCategory.cs" />
     <Compile Include="Olympics\Models\Boxer.cs" />
     <Compile Include="Olympics\Models\Olympian.cs" />
+    <Compile Include="Olympics\Models\Person.cs" />
     <Compile Include="Olympics\Models\Sprinter.cs" />
     <Compile Include="StartUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

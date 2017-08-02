@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using OlympicGames.Olympics.Contracts;
+﻿using OlympicGames.Olympics.Contracts;
 using OlympicGames.Utils;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace OlympicGames.Olympics.Models
 {
@@ -10,7 +10,8 @@ namespace OlympicGames.Olympics.Models
     {
         private IDictionary<string, double> personalRecords;
 
-        public Sprinter(string firstName, string lastName, string country, IDictionary<string,double> personalRecords) : base(firstName, lastName, country)
+        public Sprinter(string firstName, string lastName, string country, IDictionary<string, double> personalRecords = null) 
+            : base(firstName, lastName, country)
         {
             this.PersonalRecords = personalRecords;
         }
@@ -23,15 +24,20 @@ namespace OlympicGames.Olympics.Models
             }
             private set
             {
-                Validator.ValidateIfNull(value, GlobalConstants.NoPersonalRecordsSet);
                 this.personalRecords = value;
             }
         }
-        public override string ToString()
+
+        protected override string GetTypeName()
         {
-            return string.Format("SPRINTER: " + FirstName + " " + LastName + "from " + Country + "\n" + 
-                PersonalRecords != null ? GlobalConstants.PersonalRecords +string.Join("\n", 
-                PersonalRecords.Select(x=> $"{x.Key}m: {x.Value:F2}s")): GlobalConstants.NoPersonalRecordsSet);
+            return "Sprinter";
+        }
+
+        protected override string PrintAdditionalInfo()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(string.Format(PersonalRecords != null ? GlobalConstants.PersonalRecords + "\n" + string.Join("\n", this.PersonalRecords.Select(x => string.Format($"{x.Key}m: { x.Value:0.##}s"))) : GlobalConstants.NoPersonalRecordsSet));
+            return sb.ToString();
         }
     }
 }
