@@ -50,8 +50,9 @@ namespace Academy.Core.Factories
 
         public ICourse CreateCourse(string name, string lecturesPerWeek, string startingDate)
         {
-            // TODO: Implement this
-            throw new NotImplementedException("Course class not attached to factory.");
+            var parsedLectursPerWeek = int.Parse(lecturesPerWeek);
+            var parsedStartingDate = DateTime.Parse(startingDate);
+            return new Course(name, parsedLectursPerWeek, parsedStartingDate);
         }
 
         public ILecture CreateLecture(string name, string date, ITrainer trainer)
