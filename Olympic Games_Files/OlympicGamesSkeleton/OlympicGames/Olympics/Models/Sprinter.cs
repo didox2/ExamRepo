@@ -36,7 +36,8 @@ namespace OlympicGames.Olympics.Models
         protected override string PrintAdditionalInfo()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append(string.Format(PersonalRecords != null ? GlobalConstants.PersonalRecords + "\n" + string.Join("\n", this.PersonalRecords.Select(x => string.Format($"{x.Key}m: { x.Value:0.##}s"))) : GlobalConstants.NoPersonalRecordsSet));
+            sb.Append(string.Format(PersonalRecords != null ? GlobalConstants.PersonalRecords + "\n" + 
+                string.Join("\n", this.PersonalRecords.Select(x => string.Format($"{x.Key}m: { x.Value:0.##}s"))) : GlobalConstants.NoPersonalRecordsSet));
             return sb.ToString();
         }
     }

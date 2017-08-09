@@ -1,18 +1,49 @@
 ﻿using Academy.Models.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Academy.Models.Enums;
 using Academy.Models.Utils.Contracts;
+using System;
+using System.Collections.Generic;
 
 namespace Academy.Models
 {
-    public class Student : IStudent
+    public class Student : User, IStudent
     {
-        public Track Track { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public IList<ICourseResult> CourseResults { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Username { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        private Track track;
+        private IList<ICourseResult> courseResults;
+
+        public Student(string username, Track track) : base(username)
+        {
+            this.Track = track;
+            this.CourseResults = new List<ICourseResult>();
+        }
+
+        public Track Track
+        {
+            get
+            {
+                return this.track;
+            }
+            set
+            {
+                this.track = value;
+            }
+        }
+        public IList<ICourseResult> CourseResults
+        {
+            get
+            {
+                return this.courseResults;
+            }
+            set
+            {
+                this.courseResults = value;
+            }
+        }
+        
+        public override string ToString()
+        {
+            return $"* Student:\n - Username: {base.Username}\n - Track: {this.Track}\n - Course results:\n" +
+            (this.CourseResults.Count == 0 ? "  * User has no course results!" : string.Join("\n", this.CourseResults));
+        }
     }
 }

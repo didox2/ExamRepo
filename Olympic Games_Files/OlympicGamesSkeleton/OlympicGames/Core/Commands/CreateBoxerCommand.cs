@@ -22,16 +22,16 @@ namespace OlympicGames.Core.Commands
             {
                 bool winsAreNumber = int.TryParse(commandLine[4], out wins);
                 bool lossesAreNumber = int.TryParse(commandLine[5], out losses);
-                if (winsAreNumber && lossesAreNumber)
-                {
-                    this.boxer = (IBoxer)this.Factory.CreateBoxer(commandLine[0], commandLine[1], commandLine[2], commandLine[3], 
-                        int.Parse(commandLine[4]), int.Parse(commandLine[5]));
-                    this.Committee.Olympians.Add(boxer);
-                }
-                else
+
+                if (!winsAreNumber || !lossesAreNumber)
                 {
                     throw new ArgumentException(GlobalConstants.WinsLossesMustBeNumbers);
                 }
+
+                this.boxer = (IBoxer)this.Factory.CreateBoxer(commandLine[0], commandLine[1], commandLine[2], commandLine[3],
+                    int.Parse(commandLine[4]), int.Parse(commandLine[5]));
+                this.Committee.Olympians.Add(boxer);
+
             }
         }
 

@@ -6,8 +6,29 @@ using System.Threading.Tasks;
 
 namespace Academy.Models
 {
-    public class User : IUser
+    public abstract class User : IUser
     {
-        public string Username { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        private string username;
+
+        public User(string username)
+        {
+            this.Username = username;
+        }
+
+        public string Username
+        {
+            get
+            {
+                return this.username;
+            }
+            set
+            {
+                if (string.IsNullOrEmpty(value) || value.Length < 3 || value.Length > 16)
+                {
+                    throw new ArgumentException("User's username should be between 3 and 16 symbols long!");
+                }
+                this.username = value;
+            }
+        }
     }
 }

@@ -36,7 +36,7 @@ namespace OlympicGames.Olympics.Models
             }
             private set
             {
-                Validator.ValidateMinAndMaxLength(value, 2, 20, "Last name must be bewtween 2 and 20 characters long!");
+                Validator.ValidateMinAndMaxLength(value, 2, 20, "Last name must be between 2 and 20 characters long!");
                 this.lastName = value;
             }
         }

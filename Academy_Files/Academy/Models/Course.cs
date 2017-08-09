@@ -1,9 +1,6 @@
 ﻿using Academy.Models.Contracts;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Academy.Models
 {
@@ -26,7 +23,6 @@ namespace Academy.Models
             this.Lectures = new List<ILecture>();
             this.OnlineStudents = new List<IStudent>();
             this.OnsiteStudents = new List<IStudent>();
-
         }
 
         public string Name
@@ -90,6 +86,7 @@ namespace Academy.Models
             }
             set
             {
+
                 this.onsiteStudents = value;
             }
         }
@@ -120,9 +117,10 @@ namespace Academy.Models
 
         public override string ToString()
         {
-            return $"* Course\n - Name: {this.Name}\n - Lectures pre week: {this.LecturesPerWeek}\n" +
-            $" - Starting date: {this.StartingDate}\n - Ending date: {this.EndingDate}\n - Lectures:\n" +
-            (this.Lectures.Count == 0 ? "   * There are no lectures in this course!" : "");
+            return $"* Course:\n - Name: {this.Name}\n - Lectures per week: {this.LecturesPerWeek}\n" +
+            $" - Starting date: {this.StartingDate}\n - Ending date: {this.EndingDate}\n" +
+            $" - Onsite students: {this.OnsiteStudents.Count}\n - Online students: {this.OnlineStudents.Count}\n - Lectures:\n" +
+            (this.Lectures.Count != 0 ? string.Join("\n", this.Lectures) : "  * There are no lectures in this course!");
         }
     }
 }
