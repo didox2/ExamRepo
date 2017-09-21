@@ -6,8 +6,6 @@ namespace Traveller.Core.Providers
 {
     public class Database : IDatabase
     {
-        public static IDatabase Instance = new Database();
-
         private readonly IList<IVehicle> vehicles;
         private readonly IList<IJourney> journeys;
         private readonly IList<ITicket> tickets;

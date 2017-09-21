@@ -15,6 +15,8 @@ namespace Traveller.Core.Providers
 
         public CommandFactory(IKernel kernel)
         {
+            this.kernel = kernel ?? throw new ArgumentException("kernel");
+
             this.kernel = kernel;
         }
 

@@ -1,4 +1,6 @@
-﻿using Traveller.Core.Contracts;
+﻿using Ninject;
+using System;
+using Traveller.Core.Contracts;
 using Traveller.Models;
 using Traveller.Models.Abstractions;
 using Traveller.Models.Vehicles;
@@ -8,20 +10,6 @@ namespace Traveller.Core.Factories
 {
     public class TravellerFactory : ITravellerFactory
     {
-        private static readonly ITravellerFactory instanceHolder = new TravellerFactory();
-
-        private TravellerFactory()
-        {
-        }
-
-        public static ITravellerFactory Instance
-        {
-            get
-            {
-                return instanceHolder;
-            }
-        }
-
         public IVehicle CreateBus(int passengerCapacity, decimal pricePerKilometer)
         {
             return new Bus(passengerCapacity, pricePerKilometer);

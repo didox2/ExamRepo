@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Traveller.Commands.Contracts;
 using Traveller.Core.Contracts;
@@ -11,6 +12,7 @@ namespace Traveller.Core.Providers
 
         public CommandParser(ICommandFactory commandFactory)
         {
+            this.commandFactory = commandFactory ?? throw new ArgumentNullException("commandFactory");
             this.commandFactory = commandFactory;
         }
 
