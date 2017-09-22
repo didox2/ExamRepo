@@ -63,6 +63,7 @@
     <Compile Include="Core\Contracts\IReader.cs" />
     <Compile Include="Core\Contracts\ITravellerFactory.cs" />
     <Compile Include="Core\Contracts\IWriter.cs" />
+    <Compile Include="Core\Decorators\EngineTimerDecorator.cs" />
     <Compile Include="Core\Factories\TravellerFactory.cs" />
     <Compile Include="Core\Factories\CommandFactory.cs" />
     <Compile Include="Core\Providers\CommandProcessor.cs" />

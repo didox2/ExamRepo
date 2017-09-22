@@ -1,4 +1,5 @@
-﻿using Traveller.Models.Abstractions;
+﻿using System;
+using Traveller.Models.Abstractions;
 using Traveller.Models.Vehicles.Abstractions;
 
 namespace Traveller.Core.Contracts

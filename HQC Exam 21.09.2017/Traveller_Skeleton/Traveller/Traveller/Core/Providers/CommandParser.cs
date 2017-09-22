@@ -13,7 +13,6 @@ namespace Traveller.Core.Providers
         public CommandParser(ICommandFactory commandFactory)
         {
             this.commandFactory = commandFactory ?? throw new ArgumentNullException("commandFactory");
-            this.commandFactory = commandFactory;
         }
 
         public ICommand ParseCommand(string fullCommand)
@@ -28,6 +27,7 @@ namespace Traveller.Core.Providers
         public IList<string> ParseParameters(string fullCommand)
         {
             var commandParts = fullCommand.Split().Skip(1).ToList();
+
             if (commandParts.Count == 0)
             {
                 return new List<string>();

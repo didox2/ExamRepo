@@ -20,10 +20,6 @@ namespace Traveller.Core
             this.reader = reader ?? throw new ArgumentNullException("reader");
             this.writer = writer ?? throw new ArgumentNullException("writer");
             this.commandProcessor = commandProcessor ?? throw new ArgumentNullException("commandProcessor");
-
-            this.reader = reader;
-            this.writer = writer;
-            this.commandProcessor = commandProcessor;
         }
 
         public void Start()

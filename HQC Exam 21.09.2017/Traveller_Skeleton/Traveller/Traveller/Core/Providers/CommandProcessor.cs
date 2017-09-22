@@ -14,9 +14,8 @@ namespace Traveller.Core.Providers
         public CommandProcessor(ICommandParser commandParser)
         {
             this.commandParser = commandParser ?? throw new ArgumentNullException("commandParser");
-
-            this.commandParser = commandParser;
         }
+
         public void ProcessCommand(string commandAsString, StringBuilder builder)
         {
             if (string.IsNullOrWhiteSpace(commandAsString))

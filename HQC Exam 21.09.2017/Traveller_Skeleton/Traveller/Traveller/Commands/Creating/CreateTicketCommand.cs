@@ -16,9 +16,6 @@ namespace Traveller.Commands.Creating
         {
             this.factory = factory ?? throw new ArgumentNullException("factory");
             this.database = database ?? throw new ArgumentNullException("database");
-
-            this.factory = factory;
-            this.database = database;
         }
 
         public string Execute(IList<string> parameters)

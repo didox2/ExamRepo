@@ -1,10 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Traveller.Commands.Creating;
 using Traveller.Core.Contracts;
 using Traveller.Core.Providers;
@@ -23,38 +20,36 @@ namespace Traveller.UnitTests.Commands.Creating.CreateTicketCommandTests
         public void CreateTicketAndAddItToDatabase_WhenParametersAreCorrect()
         {
             // Arrange
-            decimal administrativeCosts = 1.0m;
             var databaseMock = new Mock<IDatabase>();
             var factoryMock = new Mock<ITravellerFactory>();
             var journeyMock = new Mock<IJourney>();
+
             var busVehicleMock = new Mock<IVehicle>();
             var ticketMock = new Mock<ITicket>();
-            var firstTicketMock = new Mock<ITicket>();
-            var secondTicketMock = new Mock<ITicket>();
-            List<ITicket> tickets = new List<ITicket>();
-            tickets.Add(firstTicketMock.Object);
-            tickets.Add(secondTicketMock.Object);
-            
 
+            journeyMock.Setup(m => m.Vehicle).Returns(busVehicleMock.Object);
+            
+            List<ITicket> tickets = new List<ITicket>();
+            tickets.Add(ticketMock.Object);
+
+            ticketMock.Setup(m => m.Journey).Returns(journeyMock.Object);
+            
             databaseMock.SetupGet(e => e.Tickets).Returns(tickets);
-            factoryMock.Setup(m => m.CreateBus(20, 2.0m)).Returns(busVehicleMock.Object);
-            factoryMock.Setup(m => m.CreateJourney("Sofia", "London", 3000, busVehicleMock.Object));
-            factoryMock.Setup(m => m.CreateTicket(journeyMock.Object, administrativeCosts)).Returns(ticketMock.Object);
+            factoryMock.Setup(m => m.CreateTicket(journeyMock.Object, 10m)).Returns(ticketMock.Object);
 
             List<string> parameters = new List<string>()
             {
-                "1",
-                "30"
+                "0",
+                "15"
             };
-            
-            CreateTicketCommand command =
-                new CreateTicketCommand(factoryMock.Object, databaseMock.Object);
+
+            CreateTicketCommand command = new CreateTicketCommand(factoryMock.Object, databaseMock.Object);
 
             // Act
             command.Execute(parameters);
 
             // Assert
-            Assert.AreEqual(1, databaseMock.Object.Journeys.Count -1);
+            Assert.AreEqual(1, databaseMock.Object.Journeys.Count);
             Assert.AreSame(ticketMock.Object, databaseMock.Object.Tickets.Single());
         }
 
